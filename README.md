@@ -19,6 +19,10 @@ devtools::install_github('iozeroff/pavisualizR')
 
 ```
 
+## TODO
+
+Add plot examples to README or vignette.
+
 ## Authors
 
 * Ian Ozeroff
@@ -30,3 +34,4 @@ devtools::install_github('iozeroff/pavisualizR')
 * Earthwatch Institute
 And of course 
 * Hadley Wickham
+
