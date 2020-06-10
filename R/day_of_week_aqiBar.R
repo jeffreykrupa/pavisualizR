@@ -1,5 +1,7 @@
+#' @export
+#'
 #' @title Visualize the proportion of sensor measurements that fall within Air
-#'   Quality Index (AQI) categories for each hour of the given day.
+#'  Quality Index (AQI) categories for each hour of the given day.
 #'
 #' @description Generate a bar chart of AQI measurements for a sensor.
 #'
@@ -7,13 +9,16 @@
 #' @param aqi_country The country who's Air Quality Index (AQI) should be used
 #'   for plotting, as an ISO 2 letter country code. Current options are "US" and
 #'   "IN".
+#' @param day Character vector containing days of the week to show in plot (all
+#'   lowercase), or 'all' to use all days of the week.
 #' @param position Whether to use stacked bar chart showing counts or filled bar
 #'   chart showing normalized proportions.
 #'
 #' @return a ggplot object.
 #'
-#' @example
-#'
+#' @example \dontrun{ plot <- day_of_week_aqiBar(sensor = example_sensor,
+#' aqi_country = "IN", day = c("monday, "tuesday", "wednseday"), position =
+#' "fill") }
 
 
 day_of_week_aqiBar <- function(
@@ -46,7 +51,7 @@ day_of_week_aqiBar <- function(
   )
 
 
-  if( !sensor_isSensor(sensor) ) {
+  if( !AirSensor::sensor_isSensor(sensor) ) {
     stop("sensor must be of class 'airsensor'.")
   }
   if ( !(position %in% position_opts) ) {
@@ -71,20 +76,20 @@ day_of_week_aqiBar <- function(
   day <- stringr::str_to_title(day)
 
   # Loading AQI Categorical Index info for plotting.
-  aqi_info <- load_aqi_info(country = aqi_country)
+  aqi <- aqi_info$aqi_country
 
   meta <- sensor %>%
-    sensor_extractMeta()
+    AirSensor::sensor_extractMeta()
 
   # Ready plotting set.
   data <- sensor %>%
-    sensor_extractData() %>%
+    AirSensor::sensor_extractData() %>%
     dplyr::rename(pm25 = 2) %>%
     dplyr::mutate(
       # Get AQI category of pm25
       aqi_category = cut(pm25,
-                         breaks = aqi_info$breaks_24,
-                         labels = aqi_info$names,
+                         breaks = aqi$breaks_24,
+                         labels = aqi$names,
                          ordered_result = TRUE),
       # Get day of week for each hour.
       weekday = factor(
@@ -94,7 +99,7 @@ day_of_week_aqiBar <- function(
       # Extract hour.
       hour = lubridate::hour(datetime)
     ) %>%
-    filter(!is.na(pm25),
+    dplyr::filter(!is.na(pm25),
            weekday %in% day)
 
   # Getting Timezone from data.
@@ -117,9 +122,9 @@ day_of_week_aqiBar <- function(
       ggplot2::geom_bar(position = do.call(what = position_func,
                                            args = list(reverse = TRUE))) +
       ggplot2::scale_fill_manual(aesthetics = "fill",
-                                 values = aqi_info$colors,
+                                 values = aqi$colors,
                                  na.translate = FALSE,
-                                 labels = aqi_info$names
+                                 labels = aqi$names
                                  ) +
       ggplot2::scale_x_discrete() +
       ggplot2::labs(

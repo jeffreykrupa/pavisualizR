@@ -1,3 +1,5 @@
+#' @export
+#'
 #' @title Do sensor readings fall within spec?
 #'
 #' @description Generates a scatter plot of pat sensor readings for a specified
@@ -74,21 +76,22 @@ pat_ValidationPlot <- function(
     stop("param_lims must be a numeric vector of length 2.")
   }
 
-  meta <- pat %>% pat_extractMeta()
+  meta <- pat %>%
+    AirSensor::pat_extractMeta()
 
   if ( param == "pm25" ) {
 
     if( channel == "both" ) {
 
       data <- pat %>%
-        pat_extractData() %>%
-        mutate(
-          flag_A = between(pm25_A, param_lims[1], param_lims[2]),
-          flag_B = between(pm25_B, param_lims[1], param_lims[2])
+        AirSensor::pat_extractData() %>%
+        dplyr::mutate(
+          flag_A = dplyr::between(pm25_A, param_lims[1], param_lims[2]),
+          flag_B = dplyr::between(pm25_B, param_lims[1], param_lims[2])
         )
 
       plot <- data %>%
-        ggplot(aes(x = datetime)) +
+        ggplot2::ggplot(aes(x = datetime)) +
         geom_jitter(aes(y = pm25_A, color = factor(flag_A)), alpha = 0.6) +
         geom_jitter(aes(y = pm25_B, color = factor(flag_B)), alpha = 0.6) +
         scale_x_datetime() +
@@ -112,13 +115,15 @@ pat_ValidationPlot <- function(
         )
 
       plot <- data %>%
-        ggplot(aes(x = datetime, y = !!sym(param), color = factor(flag))) +
-        geom_jitter(alpha = 0.6) +
-        scale_x_datetime() +
-        scale_color_manual(values = c("green", "red"), guide = FALSE) +
-        geom_hline(yintercept = param_lims[1], color = "red") +
-        geom_hline(yintercept = param_lims[2], color = "red") +
-        labs(
+        ggplot2::ggplot(aes(x = datetime,
+                                   y = !!sym(param),
+                                   color = factor(flag))) +
+        ggplot2::geom_jitter(alpha = 0.6) +
+        ggplot2::scale_x_datetime() +
+        ggplot2::scale_color_manual(values = c("green", "red"), guide = FALSE) +
+        ggplot2::geom_hline(yintercept = param_lims[1], color = "red") +
+        ggplot2::geom_hline(yintercept = param_lims[2], color = "red") +
+        ggplot2::labs(
           x = "DateTime",
           y = paste("PM 2.5", channel, sep = " ")
         )
@@ -126,20 +131,22 @@ pat_ValidationPlot <- function(
     }
   } else {
     data <- pat %>%
-      pat_extractData() %>%
-      mutate(
+      AirSensor::pat_extractData() %>%
+      dplyr::mutate(
         # Tags values out of range for coloring.
-        flag = between(!!sym(param), param_lims[1], param_lims[2])
+        flag = dplyr::between(!!sym(param), param_lims[1], param_lims[2])
       )
 
     plot <- data %>%
-      ggplot(aes(x = datetime, y = !!sym(param), color = factor(flag))) +
-      geom_jitter(alpha = 0.6) +
-      scale_x_datetime() +
-      scale_color_manual(values = c("green", "red"), guide = FALSE) +
-      geom_hline(yintercept = param_lims[1], color = "red") +
-      geom_hline(yintercept = param_lims[2], color = "red") +
-      labs(
+      ggplot2::ggplot(aes(x = datetime,
+                          y = !!sym(param),
+                          color = factor(flag))) +
+      ggplot2::geom_jitter(alpha = 0.6) +
+      ggplot2::scale_x_datetime() +
+      ggplot2::scale_color_manual(values = c("green", "red"), guide = FALSE) +
+      ggplot2::geom_hline(yintercept = param_lims[1], color = "red") +
+      ggplot2::geom_hline(yintercept = param_lims[2], color = "red") +
+      ggplot2::labs(
         x = "DateTime",
         y = param
       )
