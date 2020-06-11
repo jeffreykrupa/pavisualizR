@@ -49,4 +49,5 @@ aqi_info <- list(
   IN = IN
 )
 
-usethis::use_data(aqi_info, internal = TRUE)
+usethis::use_data(aqi_info, overwrite = TRUE)
+usethis::use_data(aqi_info, internal = TRUE, overwrite = TRUE)
