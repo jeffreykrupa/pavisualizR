@@ -1,6 +1,6 @@
 # TODO: Update to come from online API/DB
 
-path = "C://Users/iozeroff/Earthwatch/Anna Woodroof - Operation Healthy Air/7.Data and Field Reports/2020/Post Covid-19 materials/OHA-COVID-policy-responses.csv"
+path = "inputs/OHA-COVID-policy-responses.csv"
 
 # Reading COVID-19 Data
 covid_measures <- readr::read_csv(file = path) %>%

@@ -1,1 +1,10 @@
 .Rproj.user
+
+# Input Files #
+###############
+inputs/.*
+
+
+# Hard Data Files #
+###################
+*.csv
