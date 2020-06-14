@@ -1,21 +1,29 @@
-#' @title
+#' @export
 #'
-#' @description
+#' @title Visualize changes in PM2.5 reading distributions for each hour the
+#'   day.
 #'
-#' @param sensor
-#' @param covid_measures
-#' @param facet_workweek
+#' @description Create boxplots without whiskers for before and after COVID
+#'   response measures go into place.
 #'
-#' @returns
+#' @param sensor AirSensor object.
+#' @param facet_workweek Split plot into two facets, one for workweek days and
+#'   one for weekend days.
+#'
+#' @returns A ggplot object.
 #'
 #' @example
-#'
+#' \dontrun{
+#' plot <- covid_measuresPlot(
+#'           sensor=example_sensor,
+#'           facet_workweek = TRUE
+#'           )
+#' }
 
 # TODO: Clean code.
 
-covid_measures_Plot <- function(
+covid_measuresPlot <- function(
   sensor,
-  covid_measures,
   facet_workweek = FALSE
 ) {
 
