@@ -21,7 +21,8 @@ devtools::install_github('iozeroff/pavisualizR')
 
 ## TODO
 
-Add plot examples to README or vignette.
+1. Update COVID Measures dataset using API.
+2. Add plot examples to README or vignette.
 
 ## Authors
 

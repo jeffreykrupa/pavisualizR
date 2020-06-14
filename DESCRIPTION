@@ -23,6 +23,7 @@ Imports:
     dplyr,
     lubridate,
     purrr,
-    stringr
-Remotes:  
+    stringr,
+    magrittr
+Remotes: 
     MazamaScience/AirSensor

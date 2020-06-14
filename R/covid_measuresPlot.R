@@ -1,4 +1,6 @@
 #' @export
+#' @importFrom magrittr %>%
+#' @importFrom lubridate %within%
 #'
 #' @title Visualize changes in PM2.5 reading distributions for each hour the
 #'   day.
@@ -120,7 +122,7 @@ covid_measuresPlot <- function(
       subtitle = label,
       caption = caption,
       x = paste("Hour of Day ", "(", timezone, ")", sep = ""),
-      y = "PM25 µg/m3",
+      y = "PM25 micrograms/m3",
       color = "COVID-19 Response Measures in Place",
       fill = "COVID-19 Response Measures in Place"
     ) +
