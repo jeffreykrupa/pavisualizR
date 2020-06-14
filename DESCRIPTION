@@ -18,9 +18,11 @@ Depends:
     R (>= 3.40)
 Imports: 
     ggplot2,
-    AirSensor,
+    AirSensor (>= 0.8.2),
     RColorBrewer,
     dplyr,
     lubridate,
     purrr,
     stringr
+Remotes:  
+    MazamaScience/AirSensor
