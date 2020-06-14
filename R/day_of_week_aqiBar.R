@@ -76,7 +76,7 @@ day_of_week_aqiBar <- function(
   day <- stringr::str_to_title(day)
 
   # Loading AQI Categorical Index info for plotting.
-  aqi <- aqi_info$aqi_country
+  aqi <- aqi_info[[aqi_country]]
 
   meta <- sensor %>%
     AirSensor::sensor_extractMeta()

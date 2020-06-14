@@ -43,7 +43,7 @@ workweek_weeknd_pmPlot <- function(
   }
 
   # Loading AQI Categorical Index info for plotting.
-  aqi <- aqi_info$aqi_country
+  aqi <- aqi_info[[aqi_country]]
 
   # Readying plotting set.
   data <- sensor_list %>%

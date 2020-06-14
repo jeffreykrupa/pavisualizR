@@ -48,7 +48,7 @@ sensor_hourlyavg_aqicolorsPlot <- function(
   label <- sensor$meta$label
 
   # Loading AQI Categorical Index info for plotting.
-  aqi <- aqi_info$aqi_country
+  aqi <- aqi_info[[aqi_country]]
 
   data <- sensor %>%
     AirSensor::sensor_extractData() %>%
