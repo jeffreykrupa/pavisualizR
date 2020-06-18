@@ -39,6 +39,8 @@ covid_measuresPlot <- function(
 
   # Getting Timezone from data.
   timezone <- attr(data$datetime,"tzone")
+  start_date <- "2020-03-04"
+  end_date   <- "2020-05-20"  
 
   # Converting Timezones if necessary.
   if (timezone != "UTC") {
